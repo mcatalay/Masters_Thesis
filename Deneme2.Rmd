@@ -1,0 +1,45 @@
+---
+title: "DENEME2"
+author: "Mufitcan Atalay"
+date: "4/21/2020"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r, results = "asis"}
+library(readxl)
+kaka1 <- read_excel("kaka1.xlsx")
+
+new_reg = lm(Dec_17_RET ~ Musiad + Fetullah+ Perct_Dom_Sale + Market_Cap + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = kaka1)
+library(stargazer)
+library(lmtest)
+library(sandwich)
+cov2 = vcovHC(new_reg, type = 'HC')
+robust.se2 = sqrt(diag(cov2))
+
+stargazer(new_reg, new_reg, header = FALSE, type = 'latex', title = "Regression Results for Post Corruption Scandal", se = list(NULL, robust.se2), column.labels = c("Simple", "Robust"), no.space = TRUE, covariate.labels = c("Government Supporter", "Pro-Fetullah", "Perct Domestic Sales", "Market Capitalization", "Perct Debt", "Price Volatility", "Strategic Foreign Partnership", "Industry: Consumer","Industry: Consumer Services", "Industry: Financials", "Industry: Healthcare", "Industry: Holding", "Industry: Industrials", "Industry: Materials", "Industry: Oil and Gas", "Industry: Tech", "Industry: Telecom","Industry: Utilities", "Intercept"), font.size = 'small')
+
+
+summary(new_reg)
+```
+
+```{r}
+library(ggplot2)
+p7 = ggplot(kaka1, aes(Dec_17_RET , fill =`2013 Political Affiliation`, color = `2013 Political Affiliation`))+
+  geom_histogram(bins = 10, alpha=0.2, position="identity")+
+  ggtitle("Histogram of Post Corruption Scandal  Returns")+
+  theme(text=element_text(size=11,  family="Times"))+
+  xlab("Returns")+
+  ylab("Frequency")
+p7
+```
+
+
+```{r}
+library(dplyr)
+kaka1 %>% filter(Musiad ==1) 
+
+mean(kaka1$Dec_17_RET)
+```

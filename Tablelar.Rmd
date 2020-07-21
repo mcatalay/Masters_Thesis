@@ -1,0 +1,64 @@
+---
+title: "Tables"
+author: "Mufitcan Atalay"
+date: "4/28/2020"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+```{r}
+library(readxl)
+kaka3 <- read_excel("kaka3.xlsx")
+library(stargazer)
+library(lmtest)
+library(sandwich)
+```
+
+```{r}
+reg1 = lm(Gezi_Returns ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = kaka3)
+cov1 = vcovHC(reg1, type = 'HC')
+robust.se1 = sqrt(diag(cov1))
+
+reg2= lm(BOP_Crisis_Returns ~ Musiad_Post_Coup+ Perct_Dom_Sale_q2_2018 + Market_cap_July18 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = kaka3)
+cov2 = vcovHC(reg2, type = 'HC')
+robust.se2 = sqrt(diag(cov2))
+
+reg3 = lm(Municipal_Elec ~ Musiad_Post_Coup+ Perct_Dom_Sale_2018 + Market_cap_March19 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = kaka3)
+cov3 = vcovHC(reg3, type = 'HC')
+robust.se3 = sqrt(diag(cov3))
+
+reg4 = lm(Municipal_Elec_2 ~ Musiad_Post_Coup+ Perct_Dom_Sale_q1_2019 + Market_cap_March19 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = kaka3)
+cov4 = vcovHC(reg4, type = 'HC')
+robust.se4 = sqrt(diag(cov4))
+
+reg5 =  lm(Corona_Returns ~ Musiad_Post_Coup+ Perct_Dom_Sale_2019 + Market_cap_Feb20 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = kaka3)
+cov5 = vcovHC(reg5, type = 'HC')
+robust.se5 = sqrt(diag(cov5))
+```
+
+```{r, results = "asis"}
+
+stargazer(reg1, reg1, header = FALSE, type = 'latex', title = "Regression Results for First Weekend of Gezi Park Protests", se = list(NULL, robust.se1), column.labels = c("Simple", "Robust"), no.space = TRUE, covariate.labels = c("Government Supporter", "Pro-Fetullah", "Perct Domestic Sales", "Market Capitalization", "Perct Debt", "Price Volatility", "Strategic Foreign Partnership", "Industry: Consumer","Industry: Consumer Services", "Industry: Financials", "Industry: Healthcare", "Industry: Holding", "Industry: Industrials", "Industry: Materials", "Industry: Oil and Gas", "Industry: Tech", "Industry: Telecom","Industry: Utilities", "Intercept"), font.size = 'small')
+```
+
+```{r, results = "asis"}
+
+stargazer(reg2, reg2, header = FALSE, type = 'latex', title = "Regression Results for Balance of Payments Crisis of 2018", se = list(NULL, robust.se2), column.labels = c("Simple", "Robust"), no.space = TRUE, covariate.labels = c("Government Supporter", "Perct Domestic Sales", "Market Capitalization", "Perct Debt", "Price Volatility", "Strategic Foreign Partnership", "Industry: Consumer","Industry: Consumer Services", "Industry: Financials", "Industry: Healthcare", "Industry: Holding", "Industry: Industrials", "Industry: Materials", "Industry: Oil and Gas", "Industry: Tech", "Industry: Telecom","Industry: Utilities", "Intercept"), font.size = 'small')
+```
+
+```{r, results = "asis"}
+
+stargazer(reg3, reg3, header = FALSE, type = 'latex', title = "Regression Results for Municipal Elections of 2019", se = list(NULL, robust.se3), column.labels = c("Simple", "Robust"), no.space = TRUE, covariate.labels = c("Government Supporter",  "Perct Domestic Sales", "Market Capitalization", "Perct Debt", "Price Volatility", "Strategic Foreign Partnership", "Industry: Consumer","Industry: Consumer Services", "Industry: Financials", "Industry: Healthcare", "Industry: Holding", "Industry: Industrials", "Industry: Materials", "Industry: Oil and Gas", "Industry: Tech", "Industry: Telecom","Industry: Utilities", "Intercept"), font.size = 'small')
+```
+
+```{r, results = "asis"}
+
+stargazer(reg4, reg4, header = FALSE, type = 'latex', title = "Regression Results for Istanbul re-vote of 2019", se = list(NULL, robust.se4), column.labels = c("Simple", "Robust"), no.space = TRUE, covariate.labels = c("Government Supporter", "Perct Domestic Sales", "Market Capitalization", "Perct Debt", "Price Volatility", "Strategic Foreign Partnership", "Industry: Consumer","Industry: Consumer Services", "Industry: Financials", "Industry: Healthcare", "Industry: Holding", "Industry: Industrials", "Industry: Materials", "Industry: Oil and Gas", "Industry: Tech", "Industry: Telecom","Industry: Utilities", "Intercept"), font.size = 'small')
+```
+
+```{r, results = "asis"}
+
+stargazer(reg5, reg5, header = FALSE, type = 'latex', title = "Regression Results for Day after First Covid-19 Death in TR", se = list(NULL, robust.se5), column.labels = c("Simple", "Robust"), no.space = TRUE, covariate.labels = c("Government Supporter",  "Perct Domestic Sales", "Market Capitalization", "Perct Debt", "Price Volatility", "Strategic Foreign Partnership", "Industry: Consumer","Industry: Consumer Services", "Industry: Financials", "Industry: Healthcare", "Industry: Holding", "Industry: Industrials", "Industry: Materials", "Industry: Oil and Gas", "Industry: Tech", "Industry: Telecom","Industry: Utilities", "Intercept"), font.size = 'small')
+```

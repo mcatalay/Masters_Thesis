@@ -1,0 +1,88 @@
+---
+title: "Deneme5"
+author: "Mufitcan Atalay"
+date: "5/7/2020"
+output:
+  pdf_document: default
+classoption: landscape
+---
+
+```{r}
+library(readxl)
+TWEETSDATA_COR <- read_excel("TWEETSDATA_COR.xlsx")
+Gezi_data <- read_excel("Gezi_data.xlsx")
+library(stargazer)
+library(lmtest)
+library(sandwich)
+```
+
+
+```{r}
+reg1 = lm( May_31_Ret1 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov1 = vcovHC(reg1, type = 'HC')
+robust.se1 = sqrt(diag(cov1))
+
+reg2 = lm( May_31_Ret2 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov2 = vcovHC(reg2, type = 'HC')
+robust.se2 = sqrt(diag(cov2))
+
+reg3 = lm( May_31_Ret3 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov3 = vcovHC(reg3, type = 'HC')
+robust.se3 = sqrt(diag(cov3))
+
+reg4 = lm( May_31_Ret4 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov4 = vcovHC(reg4, type = 'HC')
+robust.se4 = sqrt(diag(cov4))
+
+reg5 = lm( May_31_Ret6 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov5 = vcovHC(reg5, type = 'HC')
+robust.se5 = sqrt(diag(cov5))
+
+reg6 = lm( May_31_Ret7 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov6 = vcovHC(reg6, type = 'HC')
+robust.se6 = sqrt(diag(cov6))
+
+reg7 = lm( May_31_Ret11 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov7 = vcovHC(reg7, type = 'HC')
+robust.se7 = sqrt(diag(cov7))
+
+reg8 = lm( May_31_Ret12 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov8 = vcovHC(reg8, type = 'HC')
+robust.se8 = sqrt(diag(cov8))
+
+reg9 = lm( May_31_Ret16 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov9 = vcovHC(reg9, type = 'HC')
+robust.se9 = sqrt(diag(cov9))
+
+reg10 = lm( May_31_Ret21 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov10 = vcovHC(reg10, type = 'HC')
+robust.se10 = sqrt(diag(cov10))
+
+reg11 = lm( May_31_Ret22 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov11 = vcovHC(reg11, type = 'HC')
+robust.se11 = sqrt(diag(cov11))
+
+reg12 = lm( May_31_Ret28 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov12 = vcovHC(reg12, type = 'HC')
+robust.se12 = sqrt(diag(cov12))
+
+reg13 = lm( May_31_Ret30 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov13 = vcovHC(reg13, type = 'HC')
+robust.se13 = sqrt(diag(cov13))
+```
+
+
+```{r, results = "asis"}
+
+stargazer(reg1, reg1, reg2, reg2, reg3, reg3, reg4, reg4, reg5, reg5, header = FALSE, type = 'latex', title = "Regression Results for Important Events during Gezi Park Protests (part 1)", se = list(NULL, robust.se1, NULL, robust.se2, NULL, robust.se3, NULL, robust.se4, NULL, robust.se5), column.labels = c("Simple", "Robust", "Simple", "Robust", "Simple", "Robust", "Simple", "Robust", "Simple", "Robust"), no.space = TRUE, covariate.labels = c("Government Supporter", "Pro-Fetullah", "Perct Domestic Sales", "Market Capitalization", "Perct Debt", "Price Volatility", "Strategic Foreign Partnership", "Industry: Consumer","Industry: Consumer Services", "Industry: Financials", "Industry: Healthcare", "Industry: Holding", "Industry: Industrials", "Industry: Materials", "Industry: Oil and Gas", "Industry: Tech", "Industry: Telecom","Industry: Utilities", "Intercept"), font.size = 'footnotesize')
+```
+\pagebreak
+```{r,results = "asis"}
+stargazer(reg6, reg6, reg7, reg7, reg8, reg8, reg9, reg9, reg10, reg10, header = FALSE, type = 'latex', title = "Regression Results for Important Events during Gezi Park Protests (part 2)", se = list(NULL, robust.se6, NULL, robust.se7, NULL, robust.se8, NULL, robust.se9, NULL, robust.se10), column.labels = c("Simple", "Robust", "Simple", "Robust", "Simple", "Robust", "Simple", "Robust", "Simple", "Robust"), no.space = TRUE, covariate.labels = c("Government Supporter", "Pro-Fetullah", "Perct Domestic Sales", "Market Capitalization", "Perct Debt", "Price Volatility", "Strategic Foreign Partnership", "Industry: Consumer","Industry: Consumer Services", "Industry: Financials", "Industry: Healthcare", "Industry: Holding", "Industry: Industrials", "Industry: Materials", "Industry: Oil and Gas", "Industry: Tech", "Industry: Telecom","Industry: Utilities", "Intercept"), font.size = 'footnotesize')
+```
+
+\pagebreak
+```{r,results = "asis"}
+stargazer(reg11, reg11, reg12, reg12, reg13, reg13, header = FALSE, type = 'latex', title = "Regression Results for Important Events during Gezi Park Protests (part 3)", se = list(NULL, robust.se11, NULL, robust.se12, NULL, robust.se13), column.labels = c("Simple", "Robust", "Simple", "Robust", "Simple", "Robust"), no.space = TRUE, covariate.labels = c("Government Supporter", "Pro-Fetullah", "Perct Domestic Sales", "Market Capitalization", "Perct Debt", "Price Volatility", "Strategic Foreign Partnership", "Industry: Consumer","Industry: Consumer Services", "Industry: Financials", "Industry: Healthcare", "Industry: Holding", "Industry: Industrials", "Industry: Materials", "Industry: Oil and Gas", "Industry: Tech", "Industry: Telecom","Industry: Utilities", "Intercept"), font.size = 'footnotesize')
+
+```

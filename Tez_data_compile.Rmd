@@ -1,0 +1,12 @@
+---
+title: "Denem3"
+author: "Mufitcan Atalay"
+date: "4/27/2020"
+output: html_document
+---
+
+```{r}
+table <- list.files(pattern = "*.csv") %>% 
+    map_df(~read_csv(.))
+tail(table)
+```

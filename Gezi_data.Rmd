@@ -1,0 +1,286 @@
+---
+title: "Twitter"
+author: "Mufitcan Atalay"
+date: "5/7/2020"
+output:
+  pdf_document: default
+  html_document: default
+classoption: landscape
+---
+
+\pagenumbering{gobble}
+
+```{r}
+library(readxl)
+TWEETSDATA_COR <- read_excel("TWEETSDATA_COR.xlsx")
+Gezi_data <- read_excel("Gezi_data.xlsx")
+library(stargazer)
+library(lmtest)
+library(sandwich)
+```
+
+
+```{r}
+reg1 = lm( May_27_Ret5 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov1 = vcovHC(reg1, type = 'HC')
+robust.se1 = sqrt(diag(cov1))
+
+reg2 = lm( May_27_Ret6 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov2 = vcovHC(reg2, type = 'HC')
+robust.se2 = sqrt(diag(cov2))
+
+reg3 = lm( May_27_Ret7 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov3 = vcovHC(reg3, type = 'HC')
+robust.se3 = sqrt(diag(cov3))
+
+reg4 = lm( May_27_Ret8 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov4 = vcovHC(reg4, type = 'HC')
+robust.se4 = sqrt(diag(cov4))
+
+reg5 = lm( May_27_Ret10 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov5 = vcovHC(reg5, type = 'HC')
+robust.se5 = sqrt(diag(cov5))
+
+reg6 = lm( May_27_Ret11 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov6 = vcovHC(reg6, type = 'HC')
+robust.se6 = sqrt(diag(cov6))
+
+reg7 = lm( May_27_Ret15 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov7 = vcovHC(reg7, type = 'HC')
+robust.se7 = sqrt(diag(cov7))
+
+reg8 = lm( May_27_Ret16 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov8 = vcovHC(reg8, type = 'HC')
+robust.se8 = sqrt(diag(cov8))
+
+reg9 = lm( May_27_Ret20 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov9 = vcovHC(reg9, type = 'HC')
+robust.se9 = sqrt(diag(cov9))
+
+reg10 = lm( May_27_Ret25 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov10 = vcovHC(reg10, type = 'HC')
+robust.se10 = sqrt(diag(cov10))
+
+reg11 = lm( May_27_Ret26 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov11 = vcovHC(reg11, type = 'HC')
+robust.se11 = sqrt(diag(cov11))
+
+reg12 = lm( May_27_Ret32 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov12 = vcovHC(reg12, type = 'HC')
+robust.se12 = sqrt(diag(cov12))
+
+reg13 = lm( May_27_Ret34 ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+cov13 = vcovHC(reg13, type = 'HC')
+robust.se13 = sqrt(diag(cov13))
+```
+
+
+```{r, results = "asis"}
+
+stargazer(reg1, reg1, reg2, reg2, reg3, reg3, reg4, reg4, reg5, reg5, header = FALSE, type = 'latex', title = "Regression Results for Important Events during Gezi Park Protests (part 1)", se = list(NULL, robust.se1, NULL, robust.se2, NULL, robust.se3, NULL, robust.se4, NULL, robust.se5), column.labels = c("Simple", "Robust", "Simple", "Robust", "Simple", "Robust", "Simple", "Robust", "Simple", "Robust"), no.space = TRUE, covariate.labels = c("Government Supporter", "Pro-Fetullah", "Perct Domestic Sales", "Market Capitalization", "Perct Debt", "Price Volatility", "Strategic Foreign Partnership", "Intercept"), font.size = 'footnotesize', omit = 'Industry', dep.var.labels = c("June 3 Returns", "June 4 Returns", "June 5 Returns", "June 6 Returns", "June 10 Returns" ), omit.labels = "Industry dummy", model.numbers= FALSE)
+
+#"Industry: Consumer","Industry: Consumer Services", "Industry: Financials", "Industry: Healthcare", "Industry: Holding", "Industry: Industrials", "Industry: Materials", "Industry: Oil and Gas", "Industry: Tech", "Industry: Telecom","Industry: Utilities"
+
+stargazer(reg6, reg6, reg7, reg7, reg8, reg8, reg9, reg9, reg10, reg10, header = FALSE, type = 'latex', title = "Regression Results for Important Events during Gezi Park Protests (part 2)", se = list(NULL, robust.se6, NULL, robust.se7, NULL, robust.se8, NULL, robust.se9, NULL, robust.se10), column.labels = c("Simple", "Robust", "Simple", "Robust", "Simple", "Robust", "Simple", "Robust", "Simple", "Robust"), no.space = TRUE, covariate.labels = c("Government Supporter", "Pro-Fetullah", "Perct Domestic Sales", "Market Capitalization", "Perct Debt", "Price Volatility", "Strategic Foreign Partnership", "Intercept"), font.size = 'footnotesize',omit = 'Industry', dep.var.labels  = c("June 11 Returns", "June 17 Returns", "June 18 Returns", "June 24 Returns", "July 1 Returns"), omit.labels = "Industry dummy", model.numbers= FALSE)
+
+#"Industry: Consumer","Industry: Consumer Services", "Industry: Financials", "Industry: Healthcare", "Industry: Holding", "Industry: Industrials", "Industry: Materials", "Industry: Oil and Gas", "Industry: Tech", "Industry: Telecom","Industry: Utilities"
+
+stargazer(reg11, reg11, reg12, reg12, reg13, reg13, header = FALSE, type = 'latex', title = "Regression Results for Important Events during Gezi Park Protests (part 3)", se = list(NULL, robust.se11, NULL, robust.se12, NULL, robust.se13), column.labels = c("Simple", "Robust", "Simple", "Robust", "Simple", "Robust"), no.space = TRUE, covariate.labels = c("Government Supporter", "Pro-Fetullah", "Perct Domestic Sales", "Market Capitalization", "Perct Debt", "Price Volatility", "Strategic Foreign Partnership", "Intercept"), font.size = 'footnotesize', omit = 'Industry', dep.var.labels = c("July 2 Returns", "July 10 Returns", "July 12 Returns"), omit.labels = "Industry dummy",  model.numbers= FALSE)
+
+#"Industry: Consumer","Industry: Consumer Services", "Industry: Financials", "Industry: Healthcare", "Industry: Holding", "Industry: Industrials", "Industry: Materials", "Industry: Oil and Gas", "Industry: Tech", "Industry: Telecom","Industry: Utilities"
+
+```
+
+
+```{r}
+tweets1 <- TWEETSDATA_COR$`#tweets.cor3`[8]
+tweets2 <- TWEETSDATA_COR$`#tweets.cor3`[9]
+tweets3 <- TWEETSDATA_COR$`#tweets.cor3`[10]
+tweets4 <- TWEETSDATA_COR$`#tweets.cor3`[11]
+tweets5 <- TWEETSDATA_COR$`#tweets.cor3`[15]
+tweets6 <- TWEETSDATA_COR$`#tweets.cor3`[16]
+tweets7 <- TWEETSDATA_COR$`#tweets.cor3`[22]
+tweets8 <- TWEETSDATA_COR$`#tweets.cor3`[23]
+tweets9 <- TWEETSDATA_COR$`#tweets.cor3`[29]
+tweets10 <- TWEETSDATA_COR$`#tweets.cor3`[36]
+tweets11 <- TWEETSDATA_COR$`#tweets.cor3`[37]
+tweets12 <- TWEETSDATA_COR$`#tweets.cor3`[45]
+tweets13 <- TWEETSDATA_COR$`#tweets.cor3`[47]
+
+Musiad_tweets1 <- Gezi_data$Musiad_2013*tweets1
+Musiad_tweets2 <- Gezi_data$Musiad_2013*tweets2
+Musiad_tweets3 <- Gezi_data$Musiad_2013*tweets3
+Musiad_tweets4 <- Gezi_data$Musiad_2013*tweets4
+Musiad_tweets5 <- Gezi_data$Musiad_2013*tweets5
+Musiad_tweets6 <- Gezi_data$Musiad_2013*tweets6
+Musiad_tweets7 <- Gezi_data$Musiad_2013*tweets7
+Musiad_tweets8 <- Gezi_data$Musiad_2013*tweets8
+Musiad_tweets9 <- Gezi_data$Musiad_2013*tweets9
+Musiad_tweets10 <- Gezi_data$Musiad_2013*tweets10
+Musiad_tweets11 <- Gezi_data$Musiad_2013*tweets11
+Musiad_tweets12 <- Gezi_data$Musiad_2013*tweets12
+Musiad_tweets13<- Gezi_data$Musiad_2013*tweets13
+
+Musiad_tweets_full = c(Musiad_tweets1, Musiad_tweets2, Musiad_tweets3, Musiad_tweets4, Musiad_tweets5, Musiad_tweets6, Musiad_tweets7, Musiad_tweets8, Musiad_tweets9, Musiad_tweets10, Musiad_tweets11, Musiad_tweets12, Musiad_tweets13)
+
+Fetullah_tweets1 <- Gezi_data$Fetullah_2013*tweets1
+Fetullah_tweets2 <- Gezi_data$Fetullah_2013*tweets2
+Fetullah_tweets3 <- Gezi_data$Fetullah_2013*tweets3
+Fetullah_tweets4 <- Gezi_data$Fetullah_2013*tweets4
+Fetullah_tweets5 <- Gezi_data$Fetullah_2013*tweets5
+Fetullah_tweets6 <- Gezi_data$Fetullah_2013*tweets6
+Fetullah_tweets7 <- Gezi_data$Fetullah_2013*tweets7
+Fetullah_tweets8 <- Gezi_data$Fetullah_2013*tweets8
+Fetullah_tweets9 <- Gezi_data$Fetullah_2013*tweets9
+Fetullah_tweets10 <- Gezi_data$Fetullah_2013*tweets10
+Fetullah_tweets11 <- Gezi_data$Fetullah_2013*tweets11
+Fetullah_tweets12 <- Gezi_data$Fetullah_2013*tweets12
+Fetullah_tweets13 <- Gezi_data$Fetullah_2013*tweets13
+
+Fetullah_tweets_full = c(Fetullah_tweets1, Fetullah_tweets2, Fetullah_tweets3, Fetullah_tweets4, Fetullah_tweets5, Fetullah_tweets6, Fetullah_tweets7, Fetullah_tweets8, Fetullah_tweets9, Fetullah_tweets10, Fetullah_tweets11, Fetullah_tweets12 ,Fetullah_tweets13)
+
+
+#reg1 = lm( May_27_Ret5 ~ Musiad_2013 + Fetullah_2013 + Musiad_tweets1 + Fetullah_tweets1 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, data = Gezi_data)
+#cov1 = vcovHC(reg1, type = 'HC')
+#robust.se1 = sqrt(diag(cov1))
+
+library(plm)
+library(tidyverse)
+#First wrangle the data
+df1 <- Gezi_data %>% select(Date,Musiad_2013,Fetullah_2013, May_27_Ret5, May_27_Ret6, May_27_Ret7, May_27_Ret8, May_27_Ret10, May_27_Ret11, May_27_Ret15,  May_27_Ret16, May_27_Ret20, May_27_Ret25,  May_27_Ret26,May_27_Ret32, May_27_Ret34,Perct_Dom_Sale_2013, Market_cap_May13, Debt_Perct, Price_Vol, F_Own_Dummy, Industry)
+library(reshape2)
+df2 <- melt(df1, id.vars = c( "Date", 'Musiad_2013', 'Fetullah_2013', 'Perct_Dom_Sale_2013', 'Market_cap_May13', 'Debt_Perct', 'Price_Vol', 'F_Own_Dummy', 'Industry'))
+df2$Musiad_tweets <- Musiad_tweets_full
+df2$Fet_tweets <- Fetullah_tweets_full 
+
+df2 <- df2 %>% rename('Ticker' = 'Date') %>% rename('Date' = 'variable') %>% rename('returns' = 'value')
+
+df3 <- pdata.frame(df2, index = c('Ticker', 'Date'))
+
+reg_pooled <- plm(returns ~Musiad_tweets + Fet_tweets + Musiad_2013 + Fetullah_2013 +  Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, model="pooling", data=df3)
+
+reg_fe <- plm(returns ~Musiad_tweets + Fet_tweets + Musiad_2013 + Fetullah_2013 +  Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, model = 'within', data=df3)
+
+reg_random <- plm(returns ~Musiad_tweets + Fet_tweets+ Musiad_2013 + Fetullah_2013 +   Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, model = 'random', data=df3)
+
+phtest(reg_fe, reg_random)
+
+#Data wrangling for whole data
+df4 <-Gezi_data %>% select(Date, starts_with("Musiad."), -Musiad.May_27) %>% rename('Ticker' = 'Date') 
+df5 <- Gezi_data %>% select(Date, starts_with("Fet."), -Fet.May_27) %>% rename('Ticker' = 'Date') 
+df6 <- melt(df4, id.vars = "Ticker")
+df7 <- melt(df5, id.vars = "Ticker")
+df8 <- as.data.frame(c(df6, df7)) %>% select(-Ticker.1) %>% rename('Musiad_tweets' = 'value', 'Fet_tweets' = 'value.1', "Musiad_date" = "variable", "Fet_date" = "variable.1")
+df9 <- Gezi_data %>% select(Date, Musiad_2013,Fetullah_2013, starts_with("May_27"), Perct_Dom_Sale_2013, Market_cap_May13, Debt_Perct, Price_Vol, F_Own_Dummy, Industry) %>% rename('Ticker' = 'Date') 
+df10 <- melt(df9, id.vars = c( "Ticker", 'Musiad_2013', 'Fetullah_2013', 'Perct_Dom_Sale_2013', 'Market_cap_May13', 'Debt_Perct', 'Price_Vol', 'F_Own_Dummy', 'Industry'))
+df_May_27 <- as.data.frame(c(df8, df10)) %>% select(-Ticker.1) %>% rename("Date" = "variable", "returns" = "value")
+
+#just tweets
+reg_pooled_full <- plm(returns ~  Musiad_2013 + Fetullah_2013 + Musiad_tweets + Fet_tweets + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, model="pooling", data=df_May_27)
+
+reg_fe_full <- plm(returns ~  Musiad_2013 + Fetullah_2013 + Musiad_tweets + Fet_tweets + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, model="within", data=df_May_27)
+
+reg_random_full <- plm(returns ~  Musiad_2013 + Fetullah_2013 + Musiad_tweets + Fet_tweets + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, model="random", data=df_May_27)
+
+
+#Data wrangling for protest, repressions data
+df_protest_musiad <- Gezi_data %>% select(Date, starts_with("Protest_Musiad")) %>% rename('Ticker' = 'Date') 
+df_protest_fet <- Gezi_data %>% select(Date, starts_with("Protest_Fet")) %>% rename('Ticker' = 'Date') 
+df_repre_musiad <- Gezi_data %>% select(Date, starts_with("Repression_Musiad")) %>% rename('Ticker' = 'Date') 
+df_repre_fet <- Gezi_data %>% select(Date, starts_with("Repression_Fet")) %>% rename('Ticker' = 'Date') 
+
+df_melt1 <- melt(df_protest_musiad, id.vars = "Ticker") %>% rename("Date_Protest_Musiad" = "variable", "Protest_Musiad" = "value")
+df_melt2 <- melt(df_protest_fet, id.vars = "Ticker") %>% rename("Date_Protest_Fet" = "variable", "Protest_Fet" = "value")
+df_melt3 <- melt(df_repre_musiad, id.vars = "Ticker") %>% rename("Date_Repression_Musiad" = "variable", "Repression_Musiad" = "value")
+df_melt4 <- melt(df_repre_fet, id.vars = "Ticker") %>% rename("Date_Repression_Fet" = "variable", "Repression_Fet" = "value")
+
+df_melt_total <-as.data.frame(c(df_melt1, df_melt2, df_melt3, df_melt4)) %>% select(-Ticker.1, -Ticker.2, -Ticker.3)
+
+df_full_May_27 <- as.data.frame(c(df_melt_total, df8, df10)) %>% select(-Ticker.1, -Ticker.2) %>% rename("Date" = "variable", "returns" = "value")
+
+#regressions with protest, repression
+#just protest
+reg_pooled_protest <- plm(returns ~ Musiad_2013 + Fetullah_2013 + Protest_Musiad + Protest_Fet+ Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, model="pooling", data=df_full_May_27)
+
+reg_fe_protest <- plm(returns ~ Musiad_2013 + Fetullah_2013 + Protest_Musiad + Protest_Fet+ Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, model="within", data=df_full_May_27)
+
+reg_random_protest <- plm(returns ~ Musiad_2013 + Fetullah_2013 + Protest_Musiad + Protest_Fet+ Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, model="random", data=df_full_May_27)
+
+#protest and represion
+reg_pooled_pro_rep<- plm(returns ~  Musiad_2013 + Fetullah_2013 + Protest_Musiad + Protest_Fet + Repression_Musiad + Repression_Fet + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, model="pooling", data=df_full_May_27)
+
+reg_fe_pro_rep <- plm(returns ~  Musiad_2013 + Fetullah_2013 + Protest_Musiad + Protest_Fet + Repression_Musiad + Repression_Fet + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, model="within", data=df_full_May_27)
+
+reg_random_pro_rep <- plm(returns ~  Musiad_2013 + Fetullah_2013 +Protest_Musiad + Protest_Fet + Repression_Musiad + Repression_Fet + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, model="random", data=df_full_May_27)
+
+#protest and represion, tweets
+reg_pooled_all<- plm(returns ~ Musiad_2013 + Fetullah_2013 + Protest_Musiad + Protest_Fet + Repression_Musiad + Repression_Fet + Musiad_tweets + Fet_tweets + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, model="pooling", data=df_full_May_27)
+
+reg_fe_all <- plm(returns ~  Musiad_2013 + Fetullah_2013 + Protest_Musiad + Protest_Fet + Repression_Musiad + Repression_Fet + Musiad_tweets + Fet_tweets + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, model="within", data=df_full_May_27)
+
+reg_random_all <- plm(returns ~ Musiad_2013 + Fetullah_2013 + Protest_Musiad + Protest_Fet + Repression_Musiad + Repression_Fet + Musiad_tweets + Fet_tweets + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, model="random", data=df_full_May_27)
+
+#Just dummy
+reg_pooled_dummy <- plm(returns ~ Musiad_2013 + Fetullah_2013 + Perct_Dom_Sale_2013 + Market_cap_May13 + Debt_Perct +Price_Vol+ F_Own_Dummy + Industry, model="pooling", data=df_full_May_27)
+```
+\pagebreak
+
+```{r, results = 'asis'}
+
+#OLS
+stargazer(reg_pooled_dummy, reg_pooled_protest ,reg_pooled_pro_rep, reg_pooled_full, reg_pooled_all, header = FALSE, type = 'latex', title = "Daily Returns During Gezi: Simple OLS", no.space = TRUE, font.size = 'footnotesize', omit = 'Industry', omit.labels = "Industry dummy",  model.numbers= FALSE, covariate.labels = c("Government Supporter","Pro-Fetullah", "Gov-Sup × Protests", "Pro-Fet × Protests","Gov-Sup × Repression", "Pro-Fet × Repression","Gov-Sup × Tweets", "Pro-Fet × Tweets", "Perct Domestic Sales", "Market Capitalization", "Perct Debt", "Price Volatility", "Strategic Foreign Partnership", "Intercept"), dep.var.labels = "Daily Returns relative to May 27")
+
+
+#Fixed Effects
+stargazer(reg_fe_protest ,reg_fe_pro_rep, reg_fe_full, reg_fe_all, header = FALSE, type = 'latex', title = "Daily Returns During Gezi: Fixed Effects", no.space = TRUE, font.size = 'footnotesize',  model.numbers= FALSE, covariate.labels = c("Gov-Sup × Protests", "Pro-Fet × Protests","Gov-Sup × Repression", "Pro-Fet × Repression","Gov-Sup × Tweets", "Pro-Fet × Tweets"), dep.var.labels = "Daily Returns relative to May 27" )
+
+#Random Effects
+stargazer(reg_random_protest ,reg_random_pro_rep, reg_random_full, reg_random_all, header = FALSE, type = 'latex', title = "Daily Returns During Gezi: Random Effects", no.space = TRUE, font.size = 'footnotesize', omit = 'Industry', omit.labels = "Industry dummy", model.numbers= FALSE, covariate.labels = c("Government Supporter","Pro-Fetullah", "Gov-Sup × Protests", "Pro-Fet × Protests","Gov-Sup × Repression", "Pro-Fet × Repression","Gov-Sup × Tweets", "Pro-Fet × Tweets", "Perct Domestic Sales", "Market Capitalization", "Perct Debt", "Price Volatility", "Strategic Foreign Partnership", "Intercept"), dep.var.labels = "Daily Returns relative to May 27")
+
+#eski
+#depvar_label = str_c("Returns on Significant Days  ------------------------------ ","Returns through May 28-July 16" )
+
+#stargazer(reg_pooled, reg_fe, reg_random, reg_pooled_full, reg_fe_full, reg_random_full, header = FALSE, type = 'latex', title = "Regression Results Including Tweets", se = list(NULL, NULL, NULL), column.labels = c("Simple OLS", "Fixed Effects", "Random Effects", "Simple OLS", "Fixed Effects", "Random Effects"), no.space = TRUE, covariate.labels = c("Gov-Sup × Tweets", "Pro-Fet × Tweets", "Government Supporter", "Pro-Fetullah", "Perct Domestic Sales", "Market Capitalization", "Perct Debt", "Price Volatility", "Strategic Foreign Partnership", "Intercept"), font.size = 'footnotesize', omit = 'Industry', add.lines = list(c("Industry dummy", "Yes", "Yes","Yes", "Yes", "Yes","Yes")), df = FALSE, single.row = FALSE, notes.align = "l", notes.append = TRUE,  dep.var.labels  = depvar_label, model.numbers= FALSE)
+
+#"Industry: Consumer","Industry: Consumer Services", "Industry: Financials", "Industry: Healthcare", "Industry: Holding", "Industry: Industrials", "Industry: Materials", "Industry: Oil and Gas", "Industry: Tech", "Industry: Telecom","Industry: Utilities"
+```
+
+
+```{r}
+#tree regression
+#All returns, financial info Pol-cons, and interactions for Musiad and Fetu
+#df_full_May_27
+#Interactions for Tusiad
+#Gezi_data_tusiad <- read_excel("Gezi_data_tusiad.xlsx")
+#df_tusiad_tweets <- Gezi_data_tusiad %>% select(Date, starts_with("Tusiad."), -Tusiad.May_27) %>% rename('Ticker' = 'Date') 
+#df_tusiad_protests <- Gezi_data_tusiad %>% select(Date, starts_with("Protest_Tusiad")) %>% rename('Ticker' = 'Date')
+#df_tusiad_repre <- Gezi_data_tusiad %>% select(Date, starts_with("Repression_Tusiad")) %>% rename('Ticker' = 'Date') 
+
+#df_melt5 <- melt(df_tusiad_tweets, id.vars = "Ticker") %>% rename("Tusiad_date" = "variable", "Tusiad_tweets" = "value")
+#df_melt6 <- melt(df_tusiad_protests, id.vars = "Ticker") %>% rename("Date_Protest_Tusiad" = "variable", "Protest_Tusiad" = "value")
+#df_melt7 <- melt(df_tusiad_repre, id.vars = "Ticker") %>% rename("Date_Repression_Tusiad" = "variable", "Repression_Tusiad" = "value")
+#df_melt_tusiad <-as.data.frame(c(df_melt5, df_melt6, df_melt7)) %>% select(-Ticker.1, -Ticker.2)
+
+#big dataset
+#df_big_gezi_May27 <-df_melt_tusiad <-as.data.frame(c(df_full_May_27, df_melt_tusiad))
+#For Tree
+#df_Gezi_tree <- df_big_gezi_May27 %>% 
+  #select(-Ticker.1, -starts_with("Date_"), -Fet_date, -Musiad_date, -Tusiad_date)
+#df_Gezi_tree1 <- df_Gezi_tree %>% select(-Ticker, -Date, -Industry)
+
+#Tree Regression
+#library(rpart)
+#tree1 <- rpart(returns~. , method="anova", data=df_Gezi_tree1, maxdepth = 5 )
+#plotcp(tree1)
+#summary(tree1)
+#rsq.rpart(tree1)
+#plot(tree1, uniform=TRUE, main="Regression Tree for Returns Relative to May 27 During Gezi ")
+#text(tree1, use.n=TRUE, all=TRUE, cex=.8)
+
+#library(partykit)
+#party_tree1 <- as.party(tree1)
+#party_tree1
+#plot(party_tree1)
+
+#rpart.plot(tree1)
+```
