@@ -1,6 +1,10 @@
 # Masters_Thesis
 My master's thesis form as of June 2020, Submitted and received a grade of A. 
 
+## Abstract
+
+Using variation in the political affiliations of firms listed in the Istanbul stock exchange and the 2016 failed coup attempt in Turkey as a exogenous political shock, we find that politically connected firms (both with the government and the coup-plotters) were associated with more negative stock returns relative to politically unaffiliated firms during political and policy shocks. We find that these political affiliations are persistent both in the past and in the future. In the context of the Gezi Park Protests of 2013, we show that they interact with social unrest and social media to affect stock returns. These results suggest that politically connected firms may have a valuation premium due to their political connections. In addition, if a firm is perceived as a threat by the government, its valuation may suffer additional losses.
+
 ## Code Content
 
 All code in `R`, in the form of `Rmarkdown` files. 
